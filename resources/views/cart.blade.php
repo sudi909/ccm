@@ -42,7 +42,7 @@
                             </ul>
                         </li>
                         <li>
-						<a href='cart.php' role='button' aria-expanded='false' style='margin-top: 15px'><b>Keranjang Belanja</b></a>
+						<a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-top: 15px'><b>Keranjang Belanja</b></a>
                         </li>
                         <li><a href="{{ route('auth.logout') }}" style='margin-top: 15px'><b>Log Out</b></a></li>
                     @else

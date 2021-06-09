@@ -30,7 +30,7 @@ class TransactionController extends Controller
             $cartItems = Cart::where('user_id', $user->id)->get();
             $transaction = Transaction::orderBy('id', 'DESC')->first();
             if ($transaction) {
-                $code = date('Ymd') . "/" . ($transaction->code + 1);
+                $code = date('Ymd') . "/" . ($transaction->id + 1);
             } else {
                 $code = date('Ymd') . "/" . 1;
             }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -18,11 +20,17 @@ class CartController extends Controller
     public function create(Request $request)
     {
         if(Auth::user()) {
-            Cart::create([
-                'item_id' => $request->id,
-                'user_id' => Auth::user()->id,
-                'quantity' => $request->quantity,
-            ]);
+            $item = Item::where('id', $request->id)->first();
+            if($item->stock > $request->quantity) {
+                Cart::updateOrCreate([
+                    'item_id' => $request->id,
+                    'user_id' => Auth::user()->id,
+                ],[
+                    'quantity' => $request->quantity,
+                ]);
+            } else {
+                Session::flash('message', 'Stock tidak cukup');
+            }
         }
         return redirect()->route('index');
     }
@@ -30,9 +38,14 @@ class CartController extends Controller
     public function update(Request $request)
     {
         if(Auth::user()) {
-            Cart::where('item_id', $request->id)->where('user_id', Auth::user()->id)->update([
-                'quantity' => $request->quantity,
-            ]);
+            $item = Item::where('id', $request->id)->first();
+            if($item->stock > $request->quantity) {
+                Cart::where('item_id', $request->id)->where('user_id', Auth::user()->id)->update([
+                    'quantity' => $request->quantity,
+                ]);
+            } else {
+                Session::flash('message', 'Stock tidak cukup');
+            }
         }
         return redirect()->route('index');
     }

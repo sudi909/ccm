@@ -42,7 +42,7 @@
                             </ul>
                         </li>
                         <li>
-						<a href='cart.php' role='button' aria-expanded='false' style='margin-top: 15px'><b>Keranjang Belanja</b></a>
+						<a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-top: 15px'><b>Keranjang Belanja</b></a>
                         </li>
                         <li><a href="{{ route('auth.logout') }}" style='margin-top: 15px'><b>Log Out</b></a></li>
                     @else
@@ -113,7 +113,13 @@
                                     </h4>
                                 </div>
 							</div>
+                            <div class="row">
+								<h4 class="col-md-3">Stock</h4>
+								<div class="col-md-1"><h4>:</h4></div>
+								<div class="col-md-8"><h4>{{ $item->stock }}</h4></div>
+							</div>
 							<form action={{ route('cart.create') }} method="post">
+                                {{ csrf_field() }}
 								<input type="hidden" name="id" value="{{ $item->id }}">
 								<div class="row">
 									<div class="col-md-3"><h4>Kuantitas</h4></div>

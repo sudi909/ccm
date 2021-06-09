@@ -32,7 +32,7 @@ Route::get('/item/{id}', [ItemController::class, 'index'])->name('item.index');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'create'])->name('cart.create');
 Route::post('/cart/edit', [CartController::class, 'edit'])->name('cart.update');
-Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.destroy');
+Route::get('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.destroy');
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
 
