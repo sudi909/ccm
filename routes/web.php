@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminItemController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
@@ -41,3 +43,19 @@ Route::get('/transaction', [TransactionController::class, 'index'])->name('trans
 Route::get('/transaction/{id}/proof', [TransactionController::class, 'proof'])->name('transaction.proof');
 Route::post('/transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
 Route::post('/transaction/edit', [TransactionController::class, 'edit'])->name('transaction.edit');
+
+// admin
+
+Route::group([
+        'prefix' => 'admin',
+], function () {
+    Route::get('/item', [AdminItemController::class, 'index'])->name('admin.item.index');
+    Route::post('/item/create', [AdminItemController::class, 'create'])->name('admin.item.create');
+    Route::post('/item/update', [AdminItemController::class, 'update'])->name('admin.item.update');
+    Route::post('/item/delete', [AdminItemController::class, 'delete'])->name('admin.item.delete');
+
+    Route::get('/category', [AdminCategoryController::class, 'index'])->name('admin.category.index');
+    Route::post('/category/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
+    Route::post('/category/update', [AdminCategoryController::class, 'update'])->name('admin.category.update');
+    Route::post('/category/delete', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
+});
