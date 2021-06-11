@@ -22,4 +22,14 @@ class TransactionDetail extends Model
         'price',
         'total',
     ];
+
+    public function transaction()
+    {
+        return $this->belongsTo('\App\Models\Transaction', 'transaction_id', 'id');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo('\App\Models\Item', 'item_id', 'id');
+    }
 }

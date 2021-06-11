@@ -18,7 +18,7 @@
 	<script type="text/javascript" src={{ asset('js/toastr.min.js') }}></script>
 </head>
 <body>
-    <div class="modal fade" id="modalTambahBarang" tabindex="-1" aria-labelledby="modalTambahBarang" aria-hidden="true">
+    <div class="modal fade" id="modalAddItem" tabindex="-1" aria-labelledby="modalAddItem" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -131,8 +131,8 @@
 								<thead>
 									<tr>
 										<th>No</th>
-										<th>Kategori Barang</th>
 										<th>Nama Barang</th>
+										<th>Kategori Barang</th>
 										<th>Harga Barang</th>
                                         <th>Berat Barang</th>
 										<th>Stok Barang</th>
@@ -149,15 +149,15 @@
 										<td class="text-center">{{ number_format($item->weight) }}</td>
 										<td class="text-center">{{ number_format($item->stock) }}</td>
 										<td class="text-center">
-											<button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdateBarang{{ $item->id }}">Update</button>
+											<button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdateItem{{ $item->id }}">Update</button>
                                             <a href="{{ route('admin.item.delete') }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-trash"></i></a>
 										</td>
 									</tr>
-                                    <div class="modal fade" id="modalUpdateBarang{{ $item->id }}" tabindex="-1"  data-backdrop="false" aria-labelledby="modalUpdateBarang" aria-hidden="true">
+                                    <div class="modal fade" id="modalUpdateItem{{ $item->id }}" tabindex="-1"  data-backdrop="false" aria-labelledby="modalUpdateItem" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    Tambah Barang
+                                                    Update Barang
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -228,7 +228,7 @@
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-md-6 text-left">
-										<button type="button" class="btn btn-success float-right mb-1" data-toggle="modal" data-target="#modalTambahBarang">Tambah Barang</button>
+										<button type="button" class="btn btn-success float-right mb-1" data-toggle="modal" data-target="#modalAddItem">Tambah Barang</button>
 									</div>
 								</div>
 							</div>

@@ -26,4 +26,9 @@ class Transaction extends Model
         'payment_date',
         'payment_path',
     ];
+
+    public function details()
+    {
+        return $this->hasMany('\App\Models\TransactionDetail', 'transaction_id', 'id');
+    }
 }

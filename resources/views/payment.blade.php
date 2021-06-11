@@ -20,15 +20,9 @@
 <body>
 	<nav class="navbar navbar-default navbar-static-top navbar-menu">
 		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-					<span class="sr-only">Toggle Navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="{{ route('index') }}">
-					<img src={{ asset('images/logo.png') }} width="100" height="30">
+			<div class="text-center">
+				<a href="{{ route('index') }}">
+					<img src="{{ asset('images/' . $company->logo_path) }}" width="160">
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -63,7 +57,18 @@
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<a href="{{ route('index') }}" style="margin-right: 20px">HOME</a>
+                            <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
+                            @if($user)
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style='margin-left: 40px'><b>{{ $user->name }}<i class="fa fa-fw fa-caret-down"></i></b></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="profile.php"><b><i class="fa fa-fw fa-user"></i>Profil</b></a></li>
+                                    <li><a href="{{ route('transaction.index') }}"><b><i class="fa fa-fw fa-first-order"></i>Transaksi</b></a></li>
+                                </ul>
+                                <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Keranjang Belanja</b></a>
+                                <a href="{{ route('auth.logout') }}" style='margin-left: 40px'><b>Log Out</b></a>
+                            @else
+                                <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Login</b></a>
+                            @endif
 						</div>
 						<div class="panel-body">
 							<div class="tab-pane col-md-12">
@@ -87,60 +92,45 @@
 	</div>
 	<footer class="main-footer">
 		<div class="container">
-			<!--Widgets Section-->
 			<div class="widgets-section">
 				<div class="row clearfix">
-
-					<!--Column-->
 					<div class="big-column col-lg-6 col-md-12 col-sm-12">
 						<div class="row clearfix">
-
-							<!--Footer Column-->
 							<div class="footer-column col-lg-12 col-md-12 col-sm-12">
-								<div class="footer-widget about-widget">
+								<div class="footer-widget about-widget" style="margin-left: -300px">
 									<h1 style="margin-bottom: 20px">
 										Tentang Kami
 									</h1>
 									<div class="text">
-										<p>UD. Baja Mas merupakan usaha dagang yang telah berdiri cukup lama sejak tanggal 22 Juli 1997. UD. Baja Mas adalah usaha dagang yang berorientasi local yang bergerak di bidang material bahan bangunan. Jenis kategori barang yang dijual di UD. Baja Mas ada beragam diantaranya, yaitu Semen, Besi, Seng Aluminium, Tripleks, serta material kecil lainnya. Produk yang disediakan juga terdiri dari berbagai merek dan kelas untuk memudahkan pelanggan dalam memilih barang berdasarkan kebutuhan.</p>
+										<p>{{ $company->about }}</p>
 									</div>
 								</div>
 							</div>
-
-							<!--Footer Column-->
-							<!-- <div class="footer-column col-lg-5 col-md-6 col-sm-12">
+							 <div class="footer-column col-lg-5 col-md-6 col-sm-12">
 								<div class="footer-widget links-widget">
 								</div>
-							</div> -->
+							</div>
 
 						</div>
 					</div>
-
-					 <!--Column-->
 					<div class="big-column col-lg-6 col-md-12 col-sm-12">
 						<div class="row clearfix">
-
-							<!--Footer Column-->
 							<div class="footer-column col-lg-6 col-md-6 col-sm-12">
 								<div class="footer-widget gallery-widget">
 								</div>
 							</div>
-
-							<!--Footer Column-->
 							<div class="footer-column col-lg-6 col-md-6 col-sm-12">
-								<div class="footer-widget info-widget">
+								<div class="footer-widget info-widget" style="margin-left: 300px">
 									<h2>Kontak</h2>
 									<ul class="info-list">
-										<li>Jl. Imam Bonjol</li>
-										<li>0812 3456 7891</li>
-										<li>bajamas@gmail.com</li>
+										<li>{{ $company->address }}</li>
+										<li>{{ $company->phone_number }}</li>
+										<li>{{ $company->email }}</li>
 									</ul>
 								</div>
 							</div>
-
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminItemController;
+use App\Http\Controllers\Admin\AdminTransactionController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
@@ -22,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/category/{id}', [IndexController::class, 'category'])->name('index.category');
+Route::get('/search/{name}', [IndexController::class, 'search'])->name('index.search');
 Route::get('/register', function () { return view('register'); })->name('auth.register');
 Route::post('/register', [RegisterController::class, 'index'])->name('cont.register');
 
@@ -35,12 +40,13 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'create'])->name('cart.create');
 Route::post('/cart/edit', [CartController::class, 'edit'])->name('cart.update');
 Route::get('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.destroy');
+Route::get('/cart/cities/{id}', [CartController::class, 'getCities'])->name('cart.cities');
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
 
 Route::get('/payment', [TransactionController::class, 'payment'])->name('payment.index');
 Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
-Route::get('/transaction/{id}/proof', [TransactionController::class, 'proof'])->name('transaction.proof');
+Route::get('/transaction/proof/{id}', [TransactionController::class, 'proof'])->name('transaction.proof');
 Route::post('/transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
 Route::post('/transaction/edit', [TransactionController::class, 'edit'])->name('transaction.edit');
 
@@ -57,5 +63,16 @@ Route::group([
     Route::get('/category', [AdminCategoryController::class, 'index'])->name('admin.category.index');
     Route::post('/category/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
     Route::post('/category/update', [AdminCategoryController::class, 'update'])->name('admin.category.update');
-    Route::post('/category/delete', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
+    Route::get('/category/delete/{id}', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
+
+    Route::get('/transaction', [AdminTransactionController::class, 'index'])->name('admin.transaction.index');
+    Route::post('/transaction/update', [AdminTransactionController::class, 'update'])->name('admin.transaction.update');
+
+    Route::get('/user', [AdminUserController::class, 'index'])->name('admin.user.index');
+    Route::get('/user/create/{id}', [AdminUserController::class, 'create'])->name('admin.user.update');
+    Route::get('/user/reset/{id}', [AdminUserController::class, 'update'])->name('admin.user.reset');
+
+    Route::get('/company', [AdminCompanyController::class, 'index'])->name('admin.company.index');
+    Route::post('/company/update', [AdminCompanyController::class, 'update'])->name('admin.company.update');
+    Route::get('/company/cities/{id}', [AdminCompanyController::class, 'getCities'])->name('admin.company.cities');
 });

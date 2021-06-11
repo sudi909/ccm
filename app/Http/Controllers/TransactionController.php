@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Company;
 use App\Models\Item;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -14,13 +15,15 @@ class TransactionController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('transaction')->with(compact('user'));
+        $company = Company::first();
+        return view('transaction')->with(compact('user', 'company'));
     }
 
-    public function payment(Request $request)
+    public function payment()
     {
         $user = Auth::user();
-        return view('payment')->with(compact('user'));
+        $company = Company::first();
+        return view('payment')->with(compact('user', 'company'));
     }
 
     public function create(Request $request)
@@ -67,8 +70,9 @@ class TransactionController extends Controller
     public function proof($id)
     {
         $user = Auth::user();
+        $company = Company::first();
         $transaction = Transaction::where('id', $id)->first();
-        return view('proof')->with(compact('user', 'transaction'));
+        return view('proof')->with(compact('user', 'company', 'transaction'));
     }
 
     public function edit(Request $request)

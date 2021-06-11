@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Company;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class CartController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
+        $company = Company::first();
 
-        return view('cart')->with(compact('user'));
+        return view('cart')->with(compact('user', 'company'));
     }
 
     public function create(Request $request)
@@ -61,7 +64,30 @@ class CartController extends Controller
     public function checkout()
     {
         $user = Auth::user();
+        $company = Company::first();
+        $provinces = RajaOngkir::provinsi()->all();
+        $cities = RajaOngkir::kota()->all();
 
-        return view('checkout')->with(compact('user'));
+        return view('checkout')->with(compact('user', 'company', 'provinces', 'cities'));
+    }
+
+    public function getCities($id)
+    {
+        $cities = RajaOngkir::kota()->dariProvinsi($id)->get();
+
+        return response()->json($cities);
+    }
+
+    public function getOngkir($id, $weight)
+    {
+        $company = Company::first();
+        $costs = RajaOngkir::ongkosKirim([
+            'origin'        => $company->city_id,
+            'destination'   => $id,
+            'weight'        => $weight,
+            'courier'       => 'jne'
+        ]);
+
+        return response()->json($costs);
     }
 }

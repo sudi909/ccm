@@ -104,25 +104,25 @@
 										<td class="text-center">{{ $category->name }}</td>
 										<td class="text-center">
 											<button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdateCategory{{ $category->id }}">Update</button>
-                                            <a href="{{ route('admin.category.delete') }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-trash"></i></a>
+                                            <a href="{{ route('admin.category.delete', $category->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-trash"></i></a>
 										</td>
 									</tr>
                                     <div class="modal fade" id="modalUpdateCategory{{ $category->id }}" tabindex="-1"  data-backdrop="false" aria-labelledby="modalUpdateCategory" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    Tambah Kategori
+                                                    Update Kategori
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form action="{{ route('admin.category.update') }}" method="POST" enctype="multipart/form-data">
-                                                        <input type="hidden" id="id" name="id" value="{{ $item->id }}">
+                                                        <input type="hidden" id="id" name="id" value="{{ $category->id }}">
                                                         {{ csrf_field() }}
                                                         <div class="form-group">
                                                             <label>Nama Kategori</label>
-                                                            <input type="text" class="form-control" id="name" name="name" value="{{ $item->name }}">
+                                                            <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}">
                                                         </div>
                                                         <button type="submit" class="btn btn-primary">Simpan Data</button>
                                                     </form>

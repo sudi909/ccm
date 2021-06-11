@@ -21,19 +21,11 @@ class Item extends Model
         'weight',
         'stock',
         'description',
-        'image_1',
-        'image_2',
-        'image_3',
     ];
 
     public function category()
     {
         return $this->belongsTo('\App\Models\Category', 'category_id', 'id');
-    }
-
-    public function images()
-    {
-        return $this->hasMany('\App\Models\Picture', 'item_id', 'id');
     }
 
     public function cart()

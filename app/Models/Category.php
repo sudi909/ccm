@@ -20,6 +20,6 @@ class Category extends Model
 
     public function items()
     {
-        return $this->hasMany('\App\Models\Item', 'category', 'id');
+        return $this->hasMany('\App\Models\Item', 'category_id', 'id');
     }
 }
