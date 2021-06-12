@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Central Cahaya Matahari</title>
+	<title>{{ $company->company_name }}</title>
 	<!-- Styles -->
 	<link href={{ asset('css/bootstrap.min.css') }} rel="stylesheet">
 	<link href={{ asset('css/font-awesome.min.css') }} rel="stylesheet">
@@ -31,45 +31,42 @@
                         <div class="panel-heading" style="margin-bottom: 30px">
                             <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
                             @if($user)
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style='margin-left: 40px'><b>{{ $user->name }}<i class="fa fa-fw fa-caret-down"></i></b></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="profile.php"><b><i class="fa fa-fw fa-user"></i>Profil</b></a></li>
-                                    <li><a href="{{ route('transaction.index') }}"><b><i class="fa fa-fw fa-first-order"></i>Transaksi</b></a></li>
-                                </ul>
-                                <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Keranjang Belanja</b></a>
-                                <a href="{{ route('auth.logout') }}" style='margin-left: 40px'><b>Log Out</b></a>
+                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
+                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
+                                <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Keranjang Belanja</a>
+                                <a href="{{ route('auth.logout') }}" style='margin-left: 40px'>Log Out</a>
                             @else
-                                <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Login</b></a>
+                                <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Login</a>
                             @endif
                         </div>
                         <div class="col-md-4">
                             <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                @if($item->image_1)
-                                <div class="item active">
-                                    <img src="{{ asset('images/' . $item->image_1) }}" class="tales">
+                                <div class="carousel-inner">
+                                    @if($item->image_1)
+                                    <div class="item active">
+                                        <img src="{{ asset('images/' . $item->image_1) }}" class="tales">
+                                    </div>
+                                    @endif
+                                    @if($item->image_2)
+                                    <div class="item">
+                                        <img src="{{ asset('images/' . $item->image_2) }}" class="tales">
+                                    </div>
+                                    @endif
+                                    @if($item->image_3)
+                                    <div class="item">
+                                        <img src="{{ asset('images/' . $item->image_3) }}" class="tales">
+                                    </div>
+                                    @endif
                                 </div>
-                                @endif
-                                @if($item->image_2)
-                                <div class="item">
-                                    <img src="{{ asset('images/' . $item->image_2) }}" class="tales">
-                                </div>
-                                @endif
-                                @if($item->image_3)
-                                <div class="item">
-                                    <img src="{{ asset('images/' . $item->image_3) }}" class="tales">
-                                </div>
-                                @endif
+                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
                         </div>
                         <div class="col-md-8" style="font-size: 15px">
                             <div class="row">

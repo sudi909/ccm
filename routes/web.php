@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
+use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminItemController;
 use App\Http\Controllers\Admin\AdminTransactionController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -38,9 +39,10 @@ Route::get('/item/{id}', [ItemController::class, 'index'])->name('item.index');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'create'])->name('cart.create');
-Route::post('/cart/edit', [CartController::class, 'edit'])->name('cart.update');
+Route::post('/cart/edit', [CartController::class, 'update'])->name('cart.update');
 Route::get('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.destroy');
 Route::get('/cart/cities/{id}', [CartController::class, 'getCities'])->name('cart.cities');
+Route::get('/cart/shipping/{id}/{weight}', [CartController::class, 'getShipping'])->name('cart.cities');
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.index');
 
@@ -48,13 +50,15 @@ Route::get('/payment', [TransactionController::class, 'payment'])->name('payment
 Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 Route::get('/transaction/proof/{id}', [TransactionController::class, 'proof'])->name('transaction.proof');
 Route::post('/transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
-Route::post('/transaction/edit', [TransactionController::class, 'edit'])->name('transaction.edit');
+Route::post('/transaction/edit', [TransactionController::class, 'update'])->name('transaction.edit');
 
 // admin
 
 Route::group([
         'prefix' => 'admin',
 ], function () {
+    Route::get('/', [AdminIndexController::class, 'index'])->name('admin.index');
+
     Route::get('/item', [AdminItemController::class, 'index'])->name('admin.item.index');
     Route::post('/item/create', [AdminItemController::class, 'create'])->name('admin.item.create');
     Route::post('/item/update', [AdminItemController::class, 'update'])->name('admin.item.update');

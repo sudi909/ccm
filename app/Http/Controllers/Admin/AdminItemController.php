@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -13,10 +14,11 @@ class AdminItemController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $company = Company::first();
         $categories = Category::all();
         $items = Item::all();
 
-        return view('admin.admin_item')->with(compact('user', 'items', 'categories'));
+        return view('admin.admin_item')->with(compact('user', 'company', 'items', 'categories'));
     }
 
     public function create(Request $request)

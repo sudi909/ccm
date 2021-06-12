@@ -39,8 +39,11 @@ class LoginController extends Controller
 
         if (Auth::check()) { // true sekalian session field di users nanti bisa dipanggil via Auth
             //Login Success
-            return redirect()->route('index');
-
+            if(Auth::user()->level == 1) {
+                return redirect()->route('admin.index');
+            } else {
+                return redirect()->route('index');
+            }
         } else { // false
             //Login Fail
             Session::flash('message', 'Email atau password salah');

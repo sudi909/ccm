@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>UD BAJA MAS</title>
+	<title>{{ $company->company_name }}</title>
 	<!-- Styles -->
 	<link href={{ asset('css/bootstrap.min.css') }} rel="stylesheet">
 	<link href={{ asset('css/font-awesome.min.css') }} rel="stylesheet">
@@ -25,28 +25,6 @@
 					<img src="{{ asset('images/' . $company->logo_path) }}" width="160">
 				</a>
 			</div>
-			<div class="collapse navbar-collapse" id="app-navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-                    @if($user)
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style='margin-top: 15px'><b>{{ $user->name }}<i class="fa fa-fw fa-caret-down"></i></b></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="profile.php"><b><i class="fa fa-fw fa-user"></i>Profil</b></a></li>
-                                <li><a href="{{ route('transaction.index') }}"><b><i class="fa fa-fw fa-first-order"></i>Transaksi</b></a></li>
-                            </ul>
-                        </li>
-                        <li>
-						<a href='cart.php' role='button' aria-expanded='false' style='margin-top: 15px'><b>Keranjang Belanja</b></a>
-                        </li>
-                        <li><a href="{{ route('auth.logout') }}" style='margin-top: 15px'><b>Log Out</b></a></li>
-                    @else
-                        <li>
-                        <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-top: 12px'><b>Login</b></a>
-                        </li>
-                    @endif
-
-				</ul>
-			</div>
 			<div class="row">
 				@if(session('message'))
                     <div class="alert alert-info alert-dismissable fade in">
@@ -56,25 +34,22 @@
                 @endif
 				<div class="col-md-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">
+						<div class="panel-heading" style="margin-bottom: 30px">
                             <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
                             @if($user)
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style='margin-left: 40px'><b>{{ $user->name }}<i class="fa fa-fw fa-caret-down"></i></b></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="profile.php"><b><i class="fa fa-fw fa-user"></i>Profil</b></a></li>
-                                    <li><a href="{{ route('transaction.index') }}"><b><i class="fa fa-fw fa-first-order"></i>Transaksi</b></a></li>
-                                </ul>
-                                <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Keranjang Belanja</b></a>
-                                <a href="{{ route('auth.logout') }}" style='margin-left: 40px'><b>Log Out</b></a>
+                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
+                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
+                                <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Keranjang Belanja</a>
+                                <a href="{{ route('auth.logout') }}" style='margin-left: 40px'>Log Out</a>
                             @else
-                                <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Login</b></a>
+                                <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Login</a>
                             @endif
-						</div>
+                        </div>
 						<div class="panel-body">
 							<div class="tab-pane col-md-12">
 								<div class="row">
 									<div class="text-center">
-										<p>SILAHKAN LAKUKAN PEMBAYARAN KE NO. REK</p>
+										<p>SILAHKAN LAKUKAN PEMBAYARAN Rp. {{ number_format($grandTotal) }} KE NO. REK</p>
 										<p>BCA</p>
 										<p>123456789</p>
 										<p>LAMPIRKAN BUKTI PEMBAYARAN DIMENU ORDER</p>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Company;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -13,10 +14,11 @@ class AdminTransactionController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $company = Company::first();
         $transactions = Transaction::all();
         $provinces = RajaOngkir::provinsi()->all();
 
-        return view('admin.admin_transaction')->with(compact('user', 'transactions', 'provinces'));
+        return view('admin.admin_transaction')->with(compact('user', 'company', 'transactions', 'provinces'));
     }
 
     public function update(Request $request)

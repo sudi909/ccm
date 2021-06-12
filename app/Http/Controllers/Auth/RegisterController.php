@@ -14,7 +14,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'level' => '2',
             'birthdate' => $request->birthdate,
-            'phone_number' => $request->birthdate,
+            'phone_number' => $request->phone_number,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);

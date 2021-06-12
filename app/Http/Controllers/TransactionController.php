@@ -29,6 +29,8 @@ class TransactionController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
+        $company = Company::first();
+        $grandTotal = $request->grand_total;
         if(Auth::user()) {
             $cartItems = Cart::where('user_id', $user->id)->get();
             $transaction = Transaction::orderBy('id', 'DESC')->first();
@@ -43,9 +45,14 @@ class TransactionController extends Controller
                 'date' => now(),
                 'customer_name' => $request->name,
                 'phone_number' => $request->phone_number,
+                'province' => $request->province,
+                'city' => $request->city,
                 'address' => $request->address,
-                'status' => '1', // 1: menunggu pembayaran, 2: sendang diproses, 3: pesanan selesai
-                'grand_total' => $request->grandTotal,
+                'status' => '1', // 1: menunggu pembayaran, 2: sedang diproses, 3: pesanan selesai
+                'shipping' => $request->shipping,
+                'shipping_price' => $request->shipping_price,
+                'total_price' => $request->total_price,
+                'grand_total' => $request->grand_total,
             ]);
             foreach ($cartItems as $cartItem) {
                 $item = Item::where('id', $cartItem->item_id)->first();
@@ -62,9 +69,8 @@ class TransactionController extends Controller
                     'total' => $cartItem->item->price * $cartItem->quantity,
                 ]);
             }
-
         }
-        return redirect()->route('payment.index');
+        return view('payment')->with(compact('user', 'company', 'grandTotal'));
     }
 
     public function proof($id)
@@ -75,7 +81,7 @@ class TransactionController extends Controller
         return view('proof')->with(compact('user', 'company', 'transaction'));
     }
 
-    public function edit(Request $request)
+    public function update(Request $request)
     {
         if ($request->file('imgInp')) {
             $imagePath = $request->file('imgInp');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,9 +13,10 @@ class AdminUserController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $company = Company::first();
         $users = User::all();
 
-        return view('admin.admin_user')->with(compact('user', 'users'));
+        return view('admin.admin_user')->with(compact('user', 'company', 'users'));
     }
 
     public function update(Request $request)

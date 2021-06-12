@@ -50,7 +50,7 @@ class CartController extends Controller
                 Session::flash('message', 'Stock tidak cukup');
             }
         }
-        return redirect()->route('index');
+        return redirect()->route('cart.index');
     }
 
     public function destroy($id)
@@ -66,9 +66,8 @@ class CartController extends Controller
         $user = Auth::user();
         $company = Company::first();
         $provinces = RajaOngkir::provinsi()->all();
-        $cities = RajaOngkir::kota()->all();
 
-        return view('checkout')->with(compact('user', 'company', 'provinces', 'cities'));
+        return view('checkout')->with(compact('user', 'company', 'provinces'));
     }
 
     public function getCities($id)
@@ -78,15 +77,16 @@ class CartController extends Controller
         return response()->json($cities);
     }
 
-    public function getOngkir($id, $weight)
+    public function getShipping($id, $weight)
     {
         $company = Company::first();
+
         $costs = RajaOngkir::ongkosKirim([
             'origin'        => $company->city_id,
             'destination'   => $id,
             'weight'        => $weight,
             'courier'       => 'jne'
-        ]);
+        ])->get();
 
         return response()->json($costs);
     }

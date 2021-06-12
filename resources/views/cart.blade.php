@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>UD BAJA MAS</title>
+	<title>{{ $company->company_name }}</title>
 	<!-- Styles -->
 	<link href={{ asset('css/bootstrap.min.css') }} rel="stylesheet">
 	<link href={{ asset('css/font-awesome.min.css') }} rel="stylesheet">
@@ -37,15 +37,12 @@
 						<div class="panel-heading">
                             <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
                             @if($user)
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style='margin-left: 40px'><b>{{ $user->name }}<i class="fa fa-fw fa-caret-down"></i></b></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="profile.php"><b><i class="fa fa-fw fa-user"></i>Profil</b></a></li>
-                                    <li><a href="{{ route('transaction.index') }}"><b><i class="fa fa-fw fa-first-order"></i>Transaksi</b></a></li>
-                                </ul>
-                                <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Keranjang Belanja</b></a>
-                                <a href="{{ route('auth.logout') }}" style='margin-left: 40px'><b>Log Out</b></a>
+                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
+                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
+                                <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Keranjang Belanja</a>
+                                <a href="{{ route('auth.logout') }}" style='margin-left: 40px'>Log Out</a>
                             @else
-                                <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-left: 40px'><b>Login</b></a>
+                                <a href="{{ route('auth.login') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Login</a>
                             @endif
 						</div>
 						<div class="panel-body">
@@ -68,9 +65,10 @@
                                             <tr>
 												<td class="text-center" width="20px">{{ ++$key }}</td>
 												<td class="text-center">{{ $cart->item->name }}</td>
-												<td class="text-center">{{ $cart->item->price }}</td>
+												<td class="text-center">{{ number_format($cart->item->price) }}</td>
                                                 <td class="text-center">{{ $cart->item->weight }}</td>
 												<form action={{ route('cart.update') }} method="post">
+                                                    {{ csrf_field() }}
 													<td class="text-center" width="30px">
 														<input class="form-control" type="number" name="quantity" value="{{  number_format($cart->quantity) }}">
 													</td>
