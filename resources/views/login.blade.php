@@ -53,9 +53,11 @@
 								<div class="col-md-12" style="text-align: center; margin-top: 10px;">
 									Belum memiliki akun ? <a href="{{ route('auth.register') }}" style="color: green;">Register</a>
 								</div>
-								<!-- <div class="col-md-6">
-									<a href="register.php" class="btn btn-info-outline" style="width:100%;">Register</a>
-								</div> -->
+							</div>
+                            <div class="form-group">
+								<div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                    <a href="{{ route('index') }}">Kembali</a>
+								</div>
 							</div>
 						</form>
 					</div>

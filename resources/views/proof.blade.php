@@ -122,7 +122,7 @@
 					<div class="big-column col-lg-6 col-md-12 col-sm-12">
 						<div class="row clearfix">
 							<div class="footer-column col-lg-12 col-md-12 col-sm-12">
-								<div class="footer-widget about-widget" style="margin-left: -300px">
+								<div class="footer-widget about-widget">
 									<h1 style="margin-bottom: 20px">
 										Tentang Kami
 									</h1>
@@ -145,7 +145,7 @@
 								</div>
 							</div>
 							<div class="footer-column col-lg-6 col-md-6 col-sm-12">
-								<div class="footer-widget info-widget" style="margin-left: 300px">
+								<div class="footer-widget info-widget">
 									<h2>Kontak</h2>
 									<ul class="info-list">
 										<li>{{ $company->address }}</li>

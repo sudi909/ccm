@@ -64,7 +64,7 @@
 				<div class="row">
 					<ol class="breadcrumb">
 						<li>
-							<a href="home.php">Home</a>
+							<a href="{{ route('admin.index') }}">Home</a>
 						</li>
 						<li class="active">
 							Kategori
@@ -140,11 +140,12 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container-fluid text-center">
-		<p class="copyright">
-			&copy; 2021 Central Cahaya Matahari
-		</p>
-	</div>
+    <footer class="footer">
+        <div class="container-fluid text-center">
+            <p class="copyright">
+                &copy; 2021 Central Cahaya Matahari
+            </p>
+        </div>
 	</footer>
 </body>
 </html>

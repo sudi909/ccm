@@ -102,7 +102,7 @@
 				<div class="row">
 					<ol class="breadcrumb">
 						<li>
-							<a href="home.php">Home</a>
+							<a href="{{ route('admin.index') }}">Home</a>
 						</li>
 						<li class="active">
 							Barang
@@ -142,7 +142,7 @@
 										<td class="text-center">{{ number_format($item->stock) }}</td>
 										<td class="text-center">
 											<button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdateItem{{ $item->id }}">Update</button>
-                                            <a href="{{ route('admin.item.delete') }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-trash"></i></a>
+                                            <a href="{{ route('admin.item.delete', $item->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-trash"></i></a>
 										</td>
 									</tr>
                                     <div class="modal fade" id="modalUpdateItem{{ $item->id }}" tabindex="-1"  data-backdrop="false" aria-labelledby="modalUpdateItem" aria-hidden="true">
@@ -230,11 +230,12 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container-fluid text-center">
-		<p class="copyright">
-			&copy; 2021 Central Cahaya Matahari
-		</p>
-	</div>
+	<footer class="footer">
+        <div class="container-fluid text-center">
+            <p class="copyright">
+                &copy; 2021 Central Cahaya Matahari
+            </p>
+        </div>
 	</footer>
     <script>
 		$(document).ready( function() {

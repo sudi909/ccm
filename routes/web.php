@@ -62,19 +62,21 @@ Route::group([
     Route::get('/item', [AdminItemController::class, 'index'])->name('admin.item.index');
     Route::post('/item/create', [AdminItemController::class, 'create'])->name('admin.item.create');
     Route::post('/item/update', [AdminItemController::class, 'update'])->name('admin.item.update');
-    Route::post('/item/delete', [AdminItemController::class, 'delete'])->name('admin.item.delete');
+    Route::post('/item/delete/{id}', [AdminItemController::class, 'destroy'])->name('admin.item.delete');
 
     Route::get('/category', [AdminCategoryController::class, 'index'])->name('admin.category.index');
     Route::post('/category/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
     Route::post('/category/update', [AdminCategoryController::class, 'update'])->name('admin.category.update');
-    Route::get('/category/delete/{id}', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
+    Route::get('/category/delete/{id}', [AdminCategoryController::class, 'destroy'])->name('admin.category.delete');
 
     Route::get('/transaction', [AdminTransactionController::class, 'index'])->name('admin.transaction.index');
     Route::post('/transaction/update', [AdminTransactionController::class, 'update'])->name('admin.transaction.update');
+    Route::post('/transaction/report', [AdminTransactionController::class, 'report'])->name('admin.transaction.report');
+    Route::post('/transaction/export', [AdminTransactionController::class, 'export'])->name('admin.transaction.export');
 
     Route::get('/user', [AdminUserController::class, 'index'])->name('admin.user.index');
-    Route::get('/user/create/{id}', [AdminUserController::class, 'create'])->name('admin.user.update');
-    Route::get('/user/reset/{id}', [AdminUserController::class, 'update'])->name('admin.user.reset');
+    Route::get('/user/update/{id}', [AdminUserController::class, 'update'])->name('admin.user.update');
+    Route::get('/user/reset/{id}', [AdminUserController::class, 'reset'])->name('admin.user.reset');
 
     Route::get('/company', [AdminCompanyController::class, 'index'])->name('admin.company.index');
     Route::post('/company/update', [AdminCompanyController::class, 'update'])->name('admin.company.update');

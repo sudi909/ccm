@@ -42,7 +42,7 @@
 				<div class="row">
 					<ol class="breadcrumb">
 						<li>
-							<a href="home.php">Home</a>
+							<a href="{{ route('admin.index') }}">Home</a>
 						</li>
 						<li class="active">
 							Transaksi
@@ -164,9 +164,9 @@
                                                             </table>
                                                             <form class="form-horizontal" method="POST" action="{{ route('admin.transaction.update') }}">
                                                                 {{ csrf_field() }}
-                                                                <input type="hidden" name="id" value="{{ $transaction->id }}">
+                                                                <input type="hidden" name="id" value="{{ $transaction->id }}" />
                                                                 Resi :
-                                                                <input class="form-control" type="text" name="resi" value="">
+                                                                <input class="form-control" type="text" name="resi" value="" />
                                                                 <select class="form-control" id="status" name="status" required>
                                                                     <option value="1" @if($transaction->status == 1) selected @endif>
                                                                         Pending
@@ -222,17 +222,18 @@
 					<h4 class="modal-title">Laporan Transaksi</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="POST" action="laporan.php">
+					<form class="form-horizontal" method="POST" action="{{ route('admin.transaction.report') }}">
+                        {{ csrf_field() }}
 						<div class="form-group">
 							<label class="col-md-4 control-label">Tanggal Awal</label>
 							<div class="col-md-6">
-								<input id="tglAwal" type="date" class="form-control" name="tglAwal" required>
+								<input id="firstDate" type="date" class="form-control" name="firstDate" required />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-4 control-label">Tanggal Akhir</label>
 							<div class="col-md-6">
-								<input id="tglAkhir" type="date" class="form-control" name="tglAkhir" required>
+								<input id="lastDate" type="date" class="form-control" name="lastDate" required />
 							</div>
 						</div>
 						<div class="form-group">
@@ -260,14 +261,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid">
-	</div>
 	<footer class="footer">
-	<div class="container-fluid text-center">
-		<p class="copyright">
-			&copy; 2019 UD. BAJA MAS
-		</p>
-	</div>
+        <div class="container-fluid text-center">
+            <p class="copyright">
+                &copy; 2021 Central Cahaya Matahari
+            </p>
+        </div>
 	</footer>
 </body>
 </html>

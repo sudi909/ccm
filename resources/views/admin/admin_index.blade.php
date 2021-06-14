@@ -76,50 +76,12 @@
 			</div>
 		</div>
 	</nav>
-	<footer class="main-footer">
-		<div class="container">
-			<div class="widgets-section">
-				<div class="row clearfix">
-					<div class="big-column col-lg-6 col-md-12 col-sm-12">
-						<div class="row clearfix">
-							<div class="footer-column col-lg-12 col-md-12 col-sm-12">
-								<div class="footer-widget about-widget" style="margin-left: -300px">
-									<h1 style="margin-bottom: 20px">
-										Tentang Kami
-									</h1>
-									<div class="text">
-										<p>{{ $company->about }}</p>
-									</div>
-								</div>
-							</div>
-							 <div class="footer-column col-lg-5 col-md-6 col-sm-12">
-								<div class="footer-widget links-widget">
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div class="big-column col-lg-6 col-md-12 col-sm-12">
-						<div class="row clearfix">
-							<div class="footer-column col-lg-6 col-md-6 col-sm-12">
-								<div class="footer-widget gallery-widget">
-								</div>
-							</div>
-							<div class="footer-column col-lg-6 col-md-6 col-sm-12">
-								<div class="footer-widget info-widget" style="margin-left: 300px">
-									<h2>Kontak</h2>
-									<ul class="info-list">
-										<li>{{ $company->address }}</li>
-										<li>{{ $company->phone_number }}</li>
-										<li>{{ $company->email }}</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<footer class="footer">
+        <div class="container-fluid text-center">
+            <p class="copyright">
+                &copy; 2021 Central Cahaya Matahari
+            </p>
+        </div>
 	</footer>
 </body>
 </html>

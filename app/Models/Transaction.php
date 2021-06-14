@@ -26,6 +26,7 @@ class Transaction extends Model
         'city',
         'status',
         'shipping',
+        'shipping_price',
         'total_price',
         'grand_total',
         'payment_date',

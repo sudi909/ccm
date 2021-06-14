@@ -19,18 +19,18 @@ class AdminUserController extends Controller
         return view('admin.admin_user')->with(compact('user', 'company', 'users'));
     }
 
-    public function update(Request $request)
+    public function update($id)
     {
-        User::where('id', $request->id)->update([
+        User::where('id', $id)->update([
             'level' => '2',
         ]);
 
         return redirect()->route('admin.user.index');
     }
 
-    public function reset(Request $request)
+    public function reset($id)
     {
-       User::where('id', $request->id)->update([
+       User::where('id', $id)->update([
             'password' => bcrypt('123456'),
         ]);
 

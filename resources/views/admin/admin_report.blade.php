@@ -45,49 +45,68 @@
 							<a href="{{ route('admin.index') }}">Home</a>
 						</li>
 						<li class="active">
-							User
+							<a href="{{ route('admin.transaction.index') }}">Transaksi</a>
+						</li>
+                        <li class="active">
+							Laporan
 						</li>
 					</ol>
-					@if(session('message'))
-                        <div class="alert alert-info alert-dismissable fade in">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-fw fa-close"></i></a>
-                            {{ session('message') }}
-                        </div>
-                    @endif
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							User
+							<div class="text-left col-md-6">
+								Transaksi
+							</div>
+							<div class="text-right">
+								<form class="form-horizontal" method="POST" action="{{ route('admin.transaction.export') }}">
+                                    {{ csrf_field() }}
+									<input type="hidden" name="firstDate" value="{{ $firstDate }}">
+									<input type="hidden" name="lastDate" value="{{ $lastDate }}">
+									<input type="hidden" name="status" value="{{ $status }}">
+									<button type="submit" class="btn btn-info">Export</button>
+								</form>
+							</div>
 						</div>
 						<div class="panel-body">
 							<table class="table table-hover table-bordered table-condensed table-responsive table-striped">
 								<thead>
 									<tr>
 										<th>No</th>
-										<th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Nomor Telepon</th>
-                                        <th>Level</th>
-										<th>Aksi</th>
+										<th>Kode Transaksi</th>
+										<th>Tanggal Transaksi</th>
+										<th>Nama Penerima</th>
+										<th>Tel. Penerima</th>
+										<th>Status</th>
+                                        <th>Total Harga</th>
+                                        <th>Ongkir</th>
+										<th>Grand Total</th>
 									</tr>
 								</thead>
 								<tbody>
-                                @foreach($users as $u)
+									@php($grandTotal = 0)
+                                    @foreach($transactions as $key => $transaction)
+                                        @php($grandTotal = $grandTotal + $transaction->grand_total)
+                                        <tr>
+                                            <td class="text-center" width="20px">{{ ++$key }}</td>
+                                            <td class="text-center">{{ $transaction->code }}</td>
+                                            <td class="text-center">{{ $transaction->date }}</td>
+                                            <td class="text-center">{{ $transaction->customer_name }}</td>
+                                            <td class="text-center">{{ $transaction->phone_number }}</td>
+                                            @if($transaction->status == 1)
+                                                <td class="text-center">Pending</td>
+                                            @elseif($transaction->status == 2)
+                                                <td class="text-center">Proses</td>
+                                            @else
+                                                <td class="text-center">Selesai</td>
+                                            @endif
+                                            <td class="text-center">Rp. {{ number_format($transaction->total_price) }}</td>
+                                            <td class="text-center">Rp. {{ number_format($transaction->shipping_price) }}</td>
+                                            <td class="text-center">Rp. {{ number_format($transaction->grand_total) }}</td>
+                                        </tr>
+                                    @endforeach
 									<tr>
-										<td class="text-center" width="20px">1</td>
-										<td class="text-center">{{ $u->name }}</td>
-                                        <td class="text-center">{{ $u->email }}</td>
-                                        <td class="text-center">{{ $u->phone_number }}</td>
-                                        @if($u->level == 1)
-                                            <td class="text-center">User</td>
-                                        @else
-                                            <td class="text-center">Admin</td>
-                                        @endif
-										<td class="text-center">
-                                            <a href="{{ route('admin.user.update', $u->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-arrow-up"></i></a>
-                                            <a href="{{ route('admin.user.reset', $u->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-refresh"></i></a>
-										</td>
+										<td colspan="6">Total Keseluruhan</td>
+										<td class="text-center">Rp. {{ number_format($grandTotal) }}</td>
 									</tr>
-                                @endforeach
 								</tbody>
 							</table>
 						</div>
