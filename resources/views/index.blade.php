@@ -195,7 +195,7 @@ $(document).ready(function() {
                     $('#item').empty();
                     $.each(response, function (key, value) {
                         $('select[name="category_id"]').val('');
-                        $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href={{ route('item.index', $item->id) }}> <img class="lazyload" src="{{ asset("images/".$item->image_1) }}" alt="{{ $item->name }}" style="height: 200px"/> <div class="container-fluid"> <h4>{{ $item->name }}</h4> <p>Rp {{ number_format($item->price) }}</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="{{ $item->id }}"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');
+                        $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');
                     });
                 },
             });
@@ -218,7 +218,8 @@ $(document).ready(function() {
                 success: function (response) {
                     $('#item').empty();
                     $.each(response, function (key, value) {
-                        $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href={{ route('item.index', $item->id) }}> <img class="lazyload" src="{{ asset("images/".$item->image_1) }}" alt="{{ $item->name }}" style="height: 200px"/> <div class="container-fluid"> <h4>{{ $item->name }}</h4> <p>Rp {{ number_format($item->price) }}</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="{{ $item->id }}"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');
+                        console.log(value);
+                        $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');
                     });
                 },
             });

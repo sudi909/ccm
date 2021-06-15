@@ -62,7 +62,7 @@ Route::group([
     Route::get('/item', [AdminItemController::class, 'index'])->name('admin.item.index');
     Route::post('/item/create', [AdminItemController::class, 'create'])->name('admin.item.create');
     Route::post('/item/update', [AdminItemController::class, 'update'])->name('admin.item.update');
-    Route::post('/item/delete/{id}', [AdminItemController::class, 'destroy'])->name('admin.item.delete');
+    Route::get('/item/delete/{id}', [AdminItemController::class, 'destroy'])->name('admin.item.delete');
 
     Route::get('/category', [AdminCategoryController::class, 'index'])->name('admin.category.index');
     Route::post('/category/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');

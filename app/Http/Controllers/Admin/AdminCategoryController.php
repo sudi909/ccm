@@ -37,9 +37,9 @@ class AdminCategoryController extends Controller
         return redirect()->route('admin.category.index');
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        Category::where('id', $request->id)->delete();
+        Category::where('id', $id)->delete();
 
         return redirect()->route('admin.category.index');
     }

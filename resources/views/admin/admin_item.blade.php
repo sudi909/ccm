@@ -132,9 +132,9 @@
 									</tr>
 								</thead>
 								<tbody>
-                                @foreach($items as $item)
+                                @foreach($items as $key => $item)
 									<tr>
-										<td class="text-center" width="20px">1</td>
+										<td class="text-center" width="20px">{{ ++$key }}</td>
 										<td class="text-center">{{ $item->name }}</td>
 										<td class="text-center">{{ $item->category->name }}</td>
 										<td class="text-center">Rp. {{ number_format($item->price) }}</td>

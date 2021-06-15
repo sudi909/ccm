@@ -90,9 +90,9 @@
 									</tr>
 								</thead>
 								<tbody>
-                                @foreach($categories as $category)
+                                @foreach($categories as $key => $category)
 									<tr>
-										<td class="text-center" width="20px">1</td>
+										<td class="text-center" width="20px">{{ ++$key }}</td>
 										<td class="text-center">{{ $category->name }}</td>
 										<td class="text-center">
 											<button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdateCategory{{ $category->id }}">Update</button>

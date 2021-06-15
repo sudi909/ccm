@@ -103,9 +103,9 @@ class AdminItemController extends Controller
         return redirect()->route('admin.item.index');
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        Item::where('id', $request->id)->delete();
+        Item::where('id', $id)->delete();
 
         return redirect()->route('admin.item.index');
     }
