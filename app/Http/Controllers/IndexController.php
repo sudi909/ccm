@@ -21,7 +21,7 @@ class IndexController extends Controller
 
     public function category($id)
     {
-        if(isset($id) != '') {
+        if($id != '0') {
             $items = Item::where('stock', '>', '0')->where('category_id', $id)->get();
         } else {
             $items = Item::where('stock', '>', '0')->get();
