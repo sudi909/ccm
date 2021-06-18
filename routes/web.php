@@ -12,6 +12,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,12 +36,16 @@ Route::get('/login', function () { return view('login'); })->name('auth.login');
 Route::post('/login', [LoginController::class, 'index'])->name('cont.login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
+Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+Route::get('/user/cities/{id}', [UserController::class, 'getCities'])->name('user.cities');
+
 Route::get('/item/{id}', [ItemController::class, 'index'])->name('item.index');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'create'])->name('cart.create');
-Route::post('/cart/edit', [CartController::class, 'update'])->name('cart.update');
-Route::get('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.destroy');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::get('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::get('/cart/cities/{id}', [CartController::class, 'getCities'])->name('cart.cities');
 Route::get('/cart/shipping/{id}/{weight}', [CartController::class, 'getShipping'])->name('cart.cities');
 
@@ -50,7 +55,7 @@ Route::get('/payment', [TransactionController::class, 'payment'])->name('payment
 Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 Route::get('/transaction/proof/{id}', [TransactionController::class, 'proof'])->name('transaction.proof');
 Route::post('/transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
-Route::post('/transaction/edit', [TransactionController::class, 'update'])->name('transaction.edit');
+Route::post('/transaction/update', [TransactionController::class, 'update'])->name('transaction.update');
 
 // admin
 
@@ -58,6 +63,8 @@ Route::group([
         'prefix' => 'admin',
 ], function () {
     Route::get('/', [AdminIndexController::class, 'index'])->name('admin.index');
+    Route::get('/profile', [AdminIndexController::class, 'profile'])->name('admin.profile.index');
+    Route::post('/profile/update', [AdminIndexController::class, 'update'])->name('admin.profile.update');
 
     Route::get('/item', [AdminItemController::class, 'index'])->name('admin.item.index');
     Route::post('/item/create', [AdminItemController::class, 'create'])->name('admin.item.create');

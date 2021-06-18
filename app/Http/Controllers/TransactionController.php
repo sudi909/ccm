@@ -68,6 +68,8 @@ class TransactionController extends Controller
                     'price' => $cartItem->item->price,
                     'total' => $cartItem->item->price * $cartItem->quantity,
                 ]);
+
+                Cart::where('item_id', $cartItem->item_id)->where('user_id', $user->id)->delete();
             }
         }
         return view('payment')->with(compact('user', 'company', 'grandTotal'));

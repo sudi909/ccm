@@ -38,7 +38,7 @@
 						<div class="panel-heading">
                             <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
                             @if($user)
-                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
+                                <a href="{{ route('user.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
                                 <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
                                 <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Keranjang Belanja</a>
                                 <a href="{{ route('auth.logout') }}" style='margin-left: 40px'>Log Out</a>
@@ -178,9 +178,9 @@
 												<textarea class="form-control" rows="3" id="address" name="address" placeholder="Alamat" required autofocus>{{ $user->address }}</textarea>
 											</div>
 										</div>
-									<div class="row text-center" style="margin-top: 50px">
-										<button type="submit" class="btn btn-primary">Konfirmasi</button>
-									</div>
+                                        <div class="row text-center" style="margin-top: 50px">
+                                            <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                                        </div>
 									</form>
 								</div>
 							</div>
@@ -268,9 +268,17 @@
                 $('input[name="city"]').val($('#city_id option:selected').text());
                 let token = $('meta[name="csrf-token"]').attr('content');
                 let city_id = $(this).val();
+                let city = $('#city_id option:selected').text();
                 let weight = $('input[name="weight"]').val();
                 if (city_id) {
-                    $.ajax({
+                    if (city === 'Batam') {
+                        let total = $('input[name="total_price"]').val();
+                        $('input[name="shipping_price"]').val('0');
+                        $('input[name="shipping_value"]').val('0');
+                        $('input[name="grand_total"]').val(parseInt(total));
+                        $('input[name="grand_total_value"]').val(addCommas(parseInt(total)));
+                    } else {
+                        $.ajax({
                         url: 'cart/shipping/' + city_id + '/' + weight,
                         type: "GET",
                         header:{
@@ -285,6 +293,8 @@
                             });
                         },
                     });
+                    }
+
                 } else {
                     $('select[name="city_id"]').append('<option value="">-- Pilih Ongkir --</option>');
                 }

@@ -37,7 +37,7 @@
 						<div class="panel-heading">
                             <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
                             @if($user)
-                                <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
+                                <a href="{{ route('user.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
                                 <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
                                 <a href="{{ route('cart.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Keranjang Belanja</a>
                                 <a href="{{ route('auth.logout') }}" style='margin-left: 40px'>Log Out</a>
@@ -80,7 +80,7 @@
 											</div>
 										</div>
 									</form>
-									<form class="form-horizontal" method="POST" action="{{ route('transaction.edit') }}" enctype="multipart/form-data">
+									<form class="form-horizontal" method="POST" action="{{ route('transaction.update') }}" enctype="multipart/form-data">
                                         {{ csrf_field() }}
 										<input id="id" type="hidden" name="id" value="{{ $transaction->id }}">
 										<div class="form-group">

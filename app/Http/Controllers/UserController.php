@@ -1,35 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Company;
-use App\Models\Transaction;
-use App\Models\TransactionDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 
-class AdminIndexController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
         $company = Company::first();
-        $countSale = TransactionDetail::whereMonth('created_at', now()->month)->sum('quantity');
-        $countTransaction = Transaction::whereMonth('date', now()->month)->count();
+        $provinces = RajaOngkir::provinsi()->all();
 
-        return view('admin.admin_index')->with(compact('user', 'company', 'countSale', 'countTransaction'));
-    }
-
-    public function profile()
-    {
-        $user = Auth::user();
-        $company = Company::first();
-
-        return view('admin.admin_profile')->with(compact('user', 'company'));
+        return view('profile')->with(compact('user', 'company', 'provinces'));
     }
 
     public function update(Request $request)
@@ -39,6 +28,11 @@ class AdminIndexController extends Controller
             User::where('id', $user->id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'birthdate' => $request->birthdate,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'province_id' => $request->province_id,
+                'city_id' => $request->city_id,
             ]);
         } else {
             if (isset($request->password_2) && isset($request->password_3)) {
@@ -47,6 +41,11 @@ class AdminIndexController extends Controller
                         User::where('id', $user->id)->update([
                             'name' => $request->name,
                             'email' => $request->email,
+                            'birthdate' => $request->birthdate,
+                            'address' => $request->address,
+                            'phone_number' => $request->phone_number,
+                            'province_id' => $request->province_id,
+                            'city_id' => $request->city_id,
                             'password' => bcrypt($request->password_2),
                         ]);
                     } else {
@@ -60,6 +59,13 @@ class AdminIndexController extends Controller
                 Session::flash('message', 'Password tidak diisi');
             }
         }
-        return redirect()->route('admin.profile.index');
+        return redirect()->route('user.index');
+    }
+
+    public function getCities($id)
+    {
+        $cities = RajaOngkir::kota()->dariProvinsi($id)->get();
+
+        return response()->json($cities);
     }
 }

@@ -37,6 +37,7 @@
 						<div class="panel-heading">
                             <a href="{{ route('admin.index') }}" style="margin-right: 20px">Home</a>
                             @if($user)
+                                <a href="{{ route('admin.profile.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
                                 <a href="{{ route('admin.item.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Barang</a>
                                 <a href="{{ route('admin.category.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Kategori</a>
                                 <a href="{{ route('admin.transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
@@ -55,7 +56,7 @@
                                             <div class="card center-block">
                                                 <div class="container-fluid">
                                                     <h4 class="text-center">Total Penjualan Bulan Ini</h4>
-                                                    <div class="text-center" style="margin-bottom: 10px">20</div>
+                                                    <div class="text-center" style="margin-bottom: 10px">{{ $countSale }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,7 +64,7 @@
                                             <div class="card center-block">
                                                 <div class="container-fluid">
                                                     <h4 class="text-center">Total Transaksi Bulan Ini</h4>
-                                                    <div class="text-center" style="margin-bottom: 10px">10</div>
+                                                    <div class="text-center" style="margin-bottom: 10px">{{ $countTransaction }}</div>
                                                 </div>
                                             </div>
                                         </div>

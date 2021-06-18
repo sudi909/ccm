@@ -46,70 +46,48 @@
 							<a href="{{ route('admin.index') }}">Home</a>
 						</li>
 						<li class="active">
-							<a href="{{ route('admin.transaction.index') }}">Transaksi</a>
-						</li>
-                        <li class="active">
-							Laporan
+							Profile
 						</li>
 					</ol>
+					@if(session('message'))
+                        <div class="alert alert-info alert-dismissable fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-fw fa-close"></i></a>
+                            {{ session('message') }}
+                        </div>
+                    @endif
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="text-left col-md-6">
-								Transaksi
-							</div>
-							<div class="text-right">
-								<form class="form-horizontal" method="POST" action="{{ route('admin.transaction.export') }}">
-                                    {{ csrf_field() }}
-									<input type="hidden" name="firstDate" value="{{ $firstDate }}">
-									<input type="hidden" name="lastDate" value="{{ $lastDate }}">
-									<input type="hidden" name="status" value="{{ $status }}">
-									<button type="submit" class="btn btn-info">Export</button>
-								</form>
-							</div>
+							Profile
 						</div>
 						<div class="panel-body">
-							<table class="table table-hover table-bordered table-condensed table-responsive table-striped">
-								<thead>
-									<tr>
-										<th>No</th>
-										<th>Kode Transaksi</th>
-										<th>Tanggal Transaksi</th>
-										<th>Nama Penerima</th>
-										<th>Tel. Penerima</th>
-										<th>Status</th>
-                                        <th>Total Harga</th>
-                                        <th>Ongkir</th>
-										<th>Grand Total</th>
-									</tr>
-								</thead>
-								<tbody>
-									@php($grandTotal = 0)
-                                    @foreach($transactions as $key => $transaction)
-                                        @php($grandTotal = $grandTotal + $transaction->grand_total)
-                                        <tr>
-                                            <td class="text-center" width="20px">{{ ++$key }}</td>
-                                            <td class="text-center">{{ $transaction->code }}</td>
-                                            <td class="text-center">{{ $transaction->date }}</td>
-                                            <td class="text-center">{{ $transaction->customer_name }}</td>
-                                            <td class="text-center">{{ $transaction->phone_number }}</td>
-                                            @if($transaction->status == 1)
-                                                <td class="text-center">Pending</td>
-                                            @elseif($transaction->status == 2)
-                                                <td class="text-center">Proses</td>
-                                            @else
-                                                <td class="text-center">Selesai</td>
-                                            @endif
-                                            <td class="text-center">Rp. {{ number_format($transaction->total_price) }}</td>
-                                            <td class="text-center">Rp. {{ number_format($transaction->shipping_price) }}</td>
-                                            <td class="text-center">Rp. {{ number_format($transaction->grand_total) }}</td>
-                                        </tr>
-                                    @endforeach
-									<tr>
-										<td colspan="6">Total Keseluruhan</td>
-										<td class="text-center">Rp. {{ number_format($grandTotal) }}</td>
-									</tr>
-								</tbody>
-							</table>
+							<form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label class="control-label">Nama</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Nama" value="{{ $user->name }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input type="email" class="form-control" name="email" placeholder="Email" value="{{ $user->email }}" required>
+                                </div>
+                                <br>
+                                <strong>Diisi jika ingin mengganti Password Anda</strong>
+                                <div class="form-group">
+                                    <label class="control-label">Password Lama</label>
+                                    <input type="password" class="form-control" name="password_1" placeholder="Password Lama">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Password Baru</label>
+                                    <input type="password" class="form-control" name="password_2" placeholder="Password Baru">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Konfirmasi Password Baru</label>
+                                    <input type="password" class="form-control" name="password_3" placeholder="Konfirmasi Password Baru">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">Simpan</button>
+                                </div>
+                            </form>
 						</div>
 					</div>
 				</div>
