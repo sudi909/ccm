@@ -102,6 +102,23 @@
 						<div class="panel-body">
 							<div class="tab-pane">
 								<div class="row">
+                                    <div class="text-center" style="margin-top: 20px; margin-bottom: 20px">
+                                        <div class="col-md-4">
+                                            <div style="height: auto; width: 400px; margin: auto">
+                                                <img src="{{ asset('images/free-dev.png') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div style="height: auto; width: 400px; margin: auto">
+                                                <img src="{{ asset('images/fast-del.png') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div style="height: auto; width: 400px; margin: auto">
+                                                <img src="{{ asset('images/big-cho.png') }}">
+                                            </div>
+                                        </div>
+                                    </div>
 									<div id="item">
 {{--                                        @foreach($items as $item)--}}
 {{--                                        <div class="col-xs-12 col-sm-4 col-md-2">--}}
