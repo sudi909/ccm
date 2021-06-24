@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/category/{id}', [IndexController::class, 'category'])->name('index.category');
-Route::get('/search/{name}', [IndexController::class, 'search'])->name('index.search');
+Route::post('/search', [IndexController::class, 'search'])->name('index.search');
 Route::get('/register', function () { return view('register'); })->name('auth.register');
 Route::post('/register', [RegisterController::class, 'index'])->name('cont.register');
 

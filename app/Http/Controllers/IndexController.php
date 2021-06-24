@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Item;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
@@ -14,30 +15,42 @@ class IndexController extends Controller
         $user = Auth::user();
         $company = Company::first();
         $categories = Category::all();
-        $items = Item::where('stock', '>', '0')->get();
+        $items = Item::where('stock', '>', '0')->paginate(12);
 
         return view('index')->with(compact('user', 'company', 'categories', 'items'));
     }
 
     public function category($id)
     {
-        if($id != '0') {
-            $items = Item::where('stock', '>', '0')->where('category_id', $id)->get();
+        $user = Auth::user();
+        $company = Company::first();
+        $categories = Category::all();
+        if($id != '') {
+            $items = Item::where('stock', '>', '0')->where('category_id', $id)->paginate(12);
         } else {
-            $items = Item::where('stock', '>', '0')->get();
+            $items = Item::where('stock', '>', '0')->paginate(12);
         }
 
-        return response()->json($items);
+        return view('index')->with(compact('user', 'company', 'categories', 'items', 'id'));
+
+//        return response()->json($items);
     }
 
-    public function search($name)
+    public function search(Request $request)
     {
-        if(isset($name) != '') {
-            $items = Item::where('stock', '>', '0')->where('name', 'like', '%' . $name . '%')->get();
+        $user = Auth::user();
+        $company = Company::first();
+        $categories = Category::all();
+        $search = $request->search;
+        if(isset($search) != '') {
+            $items = Item::where('stock', '>', '0')->where('name', 'like', '%' . $search . '%')->paginate(12);
         } else {
-            $items = Item::where('stock', '>', '0')->get();
+            return redirect()->route('index');
+//            $items = Item::where('stock', '>', '0')->get();
         }
 
-        return response()->json($items);
+        return view('index')->with(compact('user', 'company', 'categories', 'items', 'search'));
+
+//        return response()->json($items);
     }
 }

@@ -273,6 +273,8 @@
                 if (city_id) {
                     if (city === 'Batam') {
                         let total = $('input[name="total_price"]').val();
+                        $('select[name="shipping_id"]').empty();
+                        $('select[name="shipping_id"]').append('<option value="0">Free Ongkir</option>');
                         $('input[name="shipping_price"]').val('0');
                         $('input[name="shipping_value"]').val('0');
                         $('input[name="grand_total"]').val(parseInt(total));

@@ -56,22 +56,26 @@
 							</div>
                             <div class="col-md-4">
                                 <select class="form-control" id="category_id" name="category_id" required>
-                                    <option value="0" selected>-- Kategori Barang --</option>
+                                    <option value="{{ route('index') }}" selected>-- Kategori Barang --</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">
+                                        <option value="{{ route('index.category', $category->id) }}" @if(isset($id) && $category->id == $id) selected @endif>
                                             {{ $category->name }}
                                         </option>
                                     @endforeach
                                 </select>
 							</div>
-                            <div class="input-group">
-                                <input name="search" placeholder="Cari Barang" class="form-control" type="text" id="search">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button" id="SearchButton" name="SearchButton">
-                                        <span class="fa fa-fw fa-search"></span>
-                                    </button>
-                                </span>
-                            </div>
+                            <form method="POST" action="{{ route('index.search') }}">
+                                {{ csrf_field() }}
+                                <div class="input-group">
+                                    <input name="search" placeholder="Cari Barang" class="form-control" type="text" id="search"
+                                    value="@if(isset($search)){{ $search }}@endif">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" id="SearchButton" name="SearchButton">
+                                            <span class="fa fa-fw fa-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
 						</div>
                         <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 800px; height: 400px; margin: 0 auto">
                             <ol class="carousel-indicators">
@@ -120,29 +124,32 @@
                                         </div>
                                     </div>
 									<div id="item">
-{{--                                        @foreach($items as $item)--}}
-{{--                                        <div class="col-xs-12 col-sm-4 col-md-2">--}}
-{{--                                            <div class="card center-block">--}}
-{{--                                                <a href={{ route('item.index', $item->id) }}>--}}
-{{--                                                    <img class="lazyload" src="{{ asset("images/".$item->image_1) }}" alt="{{ $item->name }}" style="height: 200px"/>--}}
-{{--                                                    <div class="container-fluid">--}}
-{{--                                                        <h4>{{ $item->name }}</h4>--}}
-{{--                                                        <p>Rp {{ number_format($item->price) }}</p>--}}
-{{--                                                        <div class="text-center">--}}
-{{--                                                            <form method="POST" action={{ route("cart.create") }}>--}}
-{{--                                                                {{ csrf_field() }}--}}
-{{--                                                                <input type="hidden" name="id" value="{{ $item->id }}">--}}
-{{--                                                                <input type="hidden" name="quantity" value="1">--}}
-{{--                                                                <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button>--}}
-{{--                                                            </form>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </a>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        @endforeach--}}
+                                        @foreach($items as $item)
+                                        <div class="col-xs-12 col-sm-4 col-md-2">
+                                            <div class="card center-block">
+                                                <a href={{ route('item.index', $item->id) }}>
+                                                    <img class="lazyload" src="{{ asset("images/".$item->image_1) }}" alt="{{ $item->name }}" style="height: 200px"/>
+                                                    <div class="container-fluid">
+                                                        <h4>{{ $item->name }}</h4>
+                                                        <p>Rp {{ number_format($item->price) }}</p>
+                                                        <div class="text-center">
+                                                            <form method="POST" action={{ route("cart.create") }}>
+                                                                {{ csrf_field() }}
+                                                                <input type="hidden" name="id" value="{{ $item->id }}">
+                                                                <input type="hidden" name="quantity" value="1">
+                                                                <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        @endforeach
 									</div>
 								</div>
+                                <div class="text-center" style="margin-top: 20px">
+                                    {{ $items->links('pagination::bootstrap-4') }}
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -197,76 +204,80 @@
 	</footer>
 <script>
 $(document).ready(function() {
-    let token = $('meta[name="csrf-token"]').attr('content');
-    let category_id = $('select[name="category_id"]').val();
-    if (category_id) {
-        $.ajax({
-            url: 'category/' + category_id,
-            type: "GET",
-            header:{
-              'X-CSRF-TOKEN': token
-            },
-            dataType: "json",
-            success: function (response) {
-                $('#item').empty();
-                $('#search').val('');
-                $.each(response, function (key, value) {
-                    console.log(value);
-                    $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');
-                });
-            },
-        });
-    } else {
-        location.reload();
-    }
+    {{--let token = $('meta[name="csrf-token"]').attr('content');--}}
+    {{--let category_id = $('select[name="category_id"]').val();--}}
+    {{--if (category_id) {--}}
+    {{--    $.ajax({--}}
+    {{--        url: 'category/' + category_id,--}}
+    {{--        type: "GET",--}}
+    {{--        header:{--}}
+    {{--          'X-CSRF-TOKEN': token--}}
+    {{--        },--}}
+    {{--        dataType: "json",--}}
+    {{--        success: function (response) {--}}
+    {{--            $('#item').empty();--}}
+    {{--            $('#search').val('');--}}
+    {{--            $.each(response, function (key, value) {--}}
+    {{--                console.log(value);--}}
+    {{--                $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');--}}
+    {{--            });--}}
+    {{--        },--}}
+    {{--    });--}}
+    {{--} else {--}}
+    {{--    location.reload();--}}
+    {{--}--}}
 
-	$("#SearchButton").on("click", function() {
-	    let token = $('meta[name="csrf-token"]').attr('content');
-        let search = $("#search").val();
-        if (search) {
-            $.ajax({
-                url: 'search/' + search,
-                type: "GET",
-                header:{
-                  'X-CSRF-TOKEN': token
-                },
-                dataType: "json",
-                success: function (response) {
-                    $('#item').empty();
-                    $('select[name="category_id"]').val('0');
-                    $.each(response, function (key, value) {
-                        $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');
-                    });
-                },
-            });
-        } else {
-            location.reload();
-        }
-	});
+	{{--$("#SearchButton").on("click", function() {--}}
+	{{--    let token = $('meta[name="csrf-token"]').attr('content');--}}
+    {{--    let search = $("#search").val();--}}
+    {{--    if (search) {--}}
+    {{--        $.ajax({--}}
+    {{--            url: 'search/' + search,--}}
+    {{--            type: "GET",--}}
+    {{--            header:{--}}
+    {{--              'X-CSRF-TOKEN': token--}}
+    {{--            },--}}
+    {{--            dataType: "json",--}}
+    {{--            success: function (response) {--}}
+    {{--                $('#item').empty();--}}
+    {{--                $('select[name="category_id"]').val('0');--}}
+    {{--                $.each(response, function (key, value) {--}}
+    {{--                    $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');--}}
+    {{--                });--}}
+    {{--            },--}}
+    {{--        });--}}
+    {{--    } else {--}}
+    {{--        location.reload();--}}
+    {{--    }--}}
+	{{--});--}}
 
 	$('select[name="category_id"]').on('change', function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
-        let category_id = $(this).val();
-        if (category_id) {
-            $.ajax({
-                url: 'category/' + category_id,
-                type: "GET",
-                header:{
-                  'X-CSRF-TOKEN': token
-                },
-                dataType: "json",
-                success: function (response) {
-                    $('#item').empty();
-                    $('#search').val('');
-                    $.each(response, function (key, value) {
-                        console.log(value);
-                        $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');
-                    });
-                },
-            });
-        } else {
-            location.reload();
+	    var link = $("option:selected", this).val();
+        if (link) {
+            location.href = link;
         }
+        {{--let token = $('meta[name="csrf-token"]').attr('content');--}}
+        {{--let category_id = $(this).val();--}}
+        {{--if (category_id) {--}}
+        {{--    $.ajax({--}}
+        {{--        url: 'category/' + category_id,--}}
+        {{--        type: "GET",--}}
+        {{--        header:{--}}
+        {{--          'X-CSRF-TOKEN': token--}}
+        {{--        },--}}
+        {{--        dataType: "json",--}}
+        {{--        success: function (response) {--}}
+        {{--            $('#item').empty();--}}
+        {{--            $('#search').val('');--}}
+        {{--            $.each(response, function (key, value) {--}}
+        {{--                console.log(value);--}}
+        {{--                $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');--}}
+        {{--            });--}}
+        {{--        },--}}
+        {{--    });--}}
+        {{--} else {--}}
+        {{--    location.reload();--}}
+        {{--}--}}
     });
 });
 </script>

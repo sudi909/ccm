@@ -22,7 +22,7 @@ class AdminUserController extends Controller
     public function update($id)
     {
         User::where('id', $id)->update([
-            'level' => '2',
+            'level' => '1',
         ]);
 
         return redirect()->route('admin.user.index');

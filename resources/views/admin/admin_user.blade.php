@@ -79,9 +79,9 @@
                                         <td class="text-center">{{ $u->email }}</td>
                                         <td class="text-center">{{ $u->phone_number }}</td>
                                         @if($u->level == 1)
-                                            <td class="text-center">User</td>
-                                        @else
                                             <td class="text-center">Admin</td>
+                                        @else
+                                            <td class="text-center">User</td>
                                         @endif
 										<td class="text-center">
                                             <a href="{{ route('admin.user.update', $u->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-faw fa-arrow-up"></i></a>
