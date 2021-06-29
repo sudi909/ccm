@@ -72,9 +72,9 @@
 									</tr>
 								</thead>
 								<tbody>
-                                @foreach($users as $u)
+                                @foreach($users as $key => $u)
 									<tr>
-										<td class="text-center" width="20px">1</td>
+										<td class="text-center" width="20px">{{ ++$key }}</td>
 										<td class="text-center">{{ $u->name }}</td>
                                         <td class="text-center">{{ $u->email }}</td>
                                         <td class="text-center">{{ $u->phone_number }}</td>

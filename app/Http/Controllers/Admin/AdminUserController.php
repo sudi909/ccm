@@ -21,9 +21,17 @@ class AdminUserController extends Controller
 
     public function update($id)
     {
-        User::where('id', $id)->update([
-            'level' => '1',
-        ]);
+        $user = User::where('id', $id)->first();
+
+        if($user->level == '1') {
+            User::where('id', $id)->update([
+                'level' => '2',
+            ]);
+        } else {
+            User::where('id', $id)->update([
+                'level' => '1',
+            ]);
+        }
 
         return redirect()->route('admin.user.index');
     }
