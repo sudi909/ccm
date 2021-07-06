@@ -49,11 +49,13 @@
 							<div class="tab-pane col-md-12">
 								<div class="row">
 									<div class="text-center">
-										<p>SILAHKAN LAKUKAN PEMBAYARAN Rp. {{ number_format($grandTotal) }} KE NO. REK</p>
+                                        <p>SILAHKAN LAKUKAN PEMBAYARAN <b>Rp. {{ number_format($grandTotal) }}</b> KE NO. REK</p>
+                                        <img src="{{ asset('images/logo/bca_logo.png') }}" width="200">
 										<p>BCA</p>
-										<p>123456789</p>
-										<p>LAMPIRKAN BUKTI PEMBAYARAN DIMENU ORDER</p>
-										<p>KLIK NAMA (diatas kanan/sebelah keranjang belanja) > ORDER</p>
+                                        <p><b>821 0422 189</b></p>
+                                        <p>Atas Nama</p>
+                                        <p><b>ATAN</b></p>
+										<p>LAMPIRKAN BUKTI PEMBAYARAN DIMENU TRANSAKSI</p>
 									</div>
 								</div>
 							</div>
