@@ -53,12 +53,26 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
+    public function updateAjax($id, $quantity)
+    {
+        if(Auth::user()) {
+            $item = Item::where('id', $id)->first();
+            if($item->stock > $quantity) {
+                Cart::where('item_id', $id)->where('user_id', Auth::user()->id)->update([
+                    'quantity' => $quantity,
+                ]);
+            } else {
+                Session::flash('message', 'Stock tidak cukup');
+            }
+        }
+    }
+
     public function destroy($id)
     {
         if(Auth::user()) {
             Cart::where('item_id', $id)->where('user_id', Auth::user()->id)->delete();
         }
-        return redirect()->route('index');
+        return redirect()->route('cart.index');
     }
 
     public function checkout()
