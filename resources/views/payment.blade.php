@@ -36,6 +36,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading" style="margin-bottom: 30px">
                             <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
+                            <a href="{{ route('about') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Tentang</a>
                             @if($user)
                                 <a href="{{ route('user.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
                                 <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>

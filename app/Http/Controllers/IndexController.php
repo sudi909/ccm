@@ -53,4 +53,14 @@ class IndexController extends Controller
 
 //        return response()->json($items);
     }
+
+    public function about()
+    {
+        $user = Auth::user();
+        $company = Company::first();
+        $categories = Category::all();
+        $items = Item::where('stock', '>', '0')->paginate(12);
+
+        return view('about')->with(compact('user', 'company', 'categories', 'items'));
+    }
 }

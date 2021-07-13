@@ -87,6 +87,7 @@
 			</div>
 			<div class="panel-heading" style="margin-bottom: 30px">
                 <a href="{{ route('admin.index') }}" style="margin-right: 20px">Home</a>
+                <a href="{{ route('about') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Tentang</a>
                 @if($user)
                     <a href="{{ route('admin.profile.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
                     <a href="{{ route('admin.item.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Barang</a>

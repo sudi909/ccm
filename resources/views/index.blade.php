@@ -43,8 +43,9 @@
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
 								<a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
+                                <a href="{{ route('about') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Tentang</a>
                                 @if($user)
                                 <a href="{{ route('user.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
                                 <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
@@ -128,9 +129,9 @@
                                         <div class="col-xs-12 col-sm-4 col-md-2">
                                             <div class="card center-block">
                                                 <a href={{ route('item.index', $item->id) }}>
-                                                    <img class="lazyload" src="{{ asset("images/".$item->image_1) }}" alt="{{ $item->name }}" style="height: 200px"/>
+                                                    <img class="lazyload" src="{{ asset("images/".$item->image_1) }}" alt="{{ $item->name }}" style="   height: 200px"/>
                                                     <div class="container-fluid">
-                                                        <h4>{{ $item->name }}</h4>
+                                                        <h4>{{ Str::limit($item->name, 26) }}</h4>
                                                         <p>Rp {{ number_format($item->price) }}</p>
                                                         <div class="text-center">
                                                             <form method="POST" action={{ route("cart.create") }}>
