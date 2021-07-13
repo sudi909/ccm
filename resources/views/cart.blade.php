@@ -36,6 +36,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
                             <a href="{{ route('index') }}" style="margin-right: 20px">Home</a>
+                            <a href="{{ route('about') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Tentang</a>
                             @if($user)
                                 <a href="{{ route('user.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>{{ $user->name }}</a>
                                 <a href="{{ route('transaction.index') }}" role='button' aria-expanded='false' style='margin-left: 40px'>Transaksi</a>
@@ -67,18 +68,25 @@
 												<td class="text-center">{{ $cart->item->name }}</td>
 												<td class="text-center">{{ number_format($cart->item->price) }}</td>
                                                 <td class="text-center">{{ $cart->item->weight }}</td>
-												<form action={{ route('cart.update') }} method="post">
-                                                    {{ csrf_field() }}
-													<td class="text-center" width="30px">
-														<input class="form-control" type="number" name="quantity" value="{{  number_format($cart->quantity) }}">
-													</td>
-													<td class="text-center">{{ number_format($cart->item->price * $cart->quantity) }}</td>
-													<td class="text-center">
-														<input type="hidden" name="id" value="{{ $cart->item->id }}">
-														<button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-faw fa-save"></i></button>
-														<a href="{{ route('cart.destroy', $cart->item->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
-													</td>
-												</form>
+                                                <td class="text-center" width="30px">
+                                                    <input class="form-control" type="number" name="quantity{{ $cart->item->id }}" value="{{ number_format($cart->quantity) }}">
+                                                </td>
+                                                <td class="text-center">{{ number_format($cart->item->price * $cart->quantity) }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('cart.destroy', $cart->item->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
+                                                </td>
+{{--												<form action={{ route('cart.update') }} method="post">--}}
+{{--                                                    {{ csrf_field() }}--}}
+{{--													<td class="text-center" width="30px">--}}
+{{--														<input class="form-control" type="number" name="quantity" value="{{ number_format($cart->quantity) }}">--}}
+{{--													</td>--}}
+{{--													<td class="text-center">{{ number_format($cart->item->price * $cart->quantity) }}</td>--}}
+{{--													<td class="text-center">--}}
+{{--														<input type="hidden" name="id" value="{{ $cart->item->id }}">--}}
+{{--														<button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-faw fa-save"></i></button>--}}
+{{--														<a href="{{ route('cart.destroy', $cart->item->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>--}}
+{{--													</td>--}}
+{{--												</form>--}}
                                             <tr>
                                         @endforeach
 										</tbody>
@@ -141,5 +149,52 @@
 			</div>
 		</div>
 	</footer>
+<script>
+$(document).on('change','input[name^="quantity"]',function() {
+    let token = $('meta[name="csrf-token"]').attr('content');
+    var name = this.name.substring(8, 9);
+    var value = $(this).val();
+    $.ajax({
+        url: 'cart/update/' + name + '/' + value,
+        type: "GET",
+        header:{
+          'X-CSRF-TOKEN': token
+        },
+        dataType: "json",
+        success: function (response) {
+        },
+    });
+});
+{{--$(document).ready(function() {--}}
+{{--    var form = document.querySelector('form');--}}
+{{--    form.addEventListener('change', function() {--}}
+{{--        let quantity = $("#search").val();--}}
+{{--    });--}}
+{{--    $('select[name="quantity"]').on('change', function () {--}}
+{{--        let token = $('meta[name="csrf-token"]').attr('content');--}}
+{{--        let category_id = $(this).val();--}}
+{{--        if (category_id) {--}}
+{{--            $.ajax({--}}
+{{--                url: 'category/' + category_id,--}}
+{{--                type: "GET",--}}
+{{--                header:{--}}
+{{--                  'X-CSRF-TOKEN': token--}}
+{{--                },--}}
+{{--                dataType: "json",--}}
+{{--                success: function (response) {--}}
+{{--                    $('#item').empty();--}}
+{{--                    $('#search').val('');--}}
+{{--                    $.each(response, function (key, value) {--}}
+{{--                        console.log(value);--}}
+{{--                        $('#item').append('<div class="col-xs-12 col-sm-4 col-md-2"> <div class="card center-block"> <a href="item/' + value['id'] + '"> <img class="lazyload" src="{{ asset('images') }}/' + value['image_1'] + '" alt="' + value['name'] + '" style="height: 200px"/> <div class="container-fluid"> <h4>' + value['name'] + '</h4> <p>Rp ' + value['price'] + '</p> <div class="text-center"> <form method="POST" action={{ route("cart.create") }}>{{ csrf_field() }}<input type="hidden" name="id" value="' + value['id'] + '"> <input type="hidden" name="quantity" value="1"> <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i>Keranjang</button> </form> </div> </div> </a> </div> </div>');--}}
+{{--                    });--}}
+{{--                },--}}
+{{--            });--}}
+{{--        } else {--}}
+{{--            location.reload();--}}
+{{--        }--}}
+{{--    });--}}
+{{--}--}}
+</script>
 </body>
 </html>
