@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/category/{id}', [IndexController::class, 'category'])->name('index.category');
 Route::post('/search', [IndexController::class, 'search'])->name('index.search');
+Route::get('/about', [IndexController::class, 'about'])->name('about');
 Route::get('/register', function () { return view('register'); })->name('auth.register');
 Route::post('/register', [RegisterController::class, 'index'])->name('cont.register');
 
@@ -44,7 +45,7 @@ Route::get('/item/{id}', [ItemController::class, 'index'])->name('item.index');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'create'])->name('cart.create');
-Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::get('/cart/update/{id}/{quantity}', [CartController::class, 'updateAjax'])->name('cart.update.ajax');
 Route::get('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::get('/cart/cities/{id}', [CartController::class, 'getCities'])->name('cart.cities');
 Route::get('/cart/shipping/{id}/{weight}', [CartController::class, 'getShipping'])->name('cart.cities');
