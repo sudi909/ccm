@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Exports\\TransactionsExport' => $baseDir . '/app/Exports/TransactionsExport.php',
     'App\\Http\\Controllers\\Admin\\AdminCategoryController' => $baseDir . '/app/Http/Controllers/Admin/AdminCategoryController.php',
     'App\\Http\\Controllers\\Admin\\AdminCompanyController' => $baseDir . '/app/Http/Controllers/Admin/AdminCompanyController.php',
     'App\\Http\\Controllers\\Admin\\AdminIndexController' => $baseDir . '/app/Http/Controllers/Admin/AdminIndexController.php',
@@ -21,6 +22,7 @@ return array(
     'App\\Http\\Controllers\\IndexController' => $baseDir . '/app/Http/Controllers/IndexController.php',
     'App\\Http\\Controllers\\ItemController' => $baseDir . '/app/Http/Controllers/ItemController.php',
     'App\\Http\\Controllers\\TransactionController' => $baseDir . '/app/Http/Controllers/TransactionController.php',
+    'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

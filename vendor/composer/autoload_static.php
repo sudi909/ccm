@@ -610,6 +610,7 @@ class ComposerStaticInitcb5bcabedfe3816e1c415e3e3efb540e
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Exports\\TransactionsExport' => __DIR__ . '/../..' . '/app/Exports/TransactionsExport.php',
         'App\\Http\\Controllers\\Admin\\AdminCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminCategoryController.php',
         'App\\Http\\Controllers\\Admin\\AdminCompanyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminCompanyController.php',
         'App\\Http\\Controllers\\Admin\\AdminIndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminIndexController.php',
@@ -623,6 +624,7 @@ class ComposerStaticInitcb5bcabedfe3816e1c415e3e3efb540e
         'App\\Http\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/IndexController.php',
         'App\\Http\\Controllers\\ItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/ItemController.php',
         'App\\Http\\Controllers\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/TransactionController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
